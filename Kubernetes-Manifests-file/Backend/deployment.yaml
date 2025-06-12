@@ -25,20 +25,20 @@ spec:
       - name: ecr-registry-secret
       containers:
       - name: api
-        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+        image: 570282481953.dkr.ecr.us-east-1.amazonaws.com/nodemongo-app-backend
         imagePullPolicy: Always
         env:
           - name: MONGO_CONN_STR
-            value: mongodb://mongodb-svc:27017/todo?directConnection=true
+            value: mongodb://root:rootpassword@mongodb-headless.devtroncd.svc.cluster.local:27017/deepmongodb?authSource=admin&replicaSet=rs0
           - name: MONGO_USERNAME
             valueFrom:
               secretKeyRef:
-                name: mongo-sec
+                name: mongodb
                 key: username
           - name: MONGO_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mongo-sec
+                name: mongodb
                 key: password
         ports:
         - containerPort: 3500
